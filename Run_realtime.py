@@ -7,7 +7,7 @@ from keras.preprocessing import image
 from imutils.video import VideoStream
 import cv2
 import numpy as np
-
+import time
 
 face_classifier=cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 model = load_model('FaceShape_Gender_Age_30epochs.h5')
@@ -18,10 +18,11 @@ gender_dict = {0:'Male', 1:'Female'}
 # map labels for shape
 shape_dict = {0:'Diamond', 1:'Round',2:'Oval',3:'Rectangle',4:'Heart'}
 
+#source = 'sasa.mp4'
+#cam = VideoStream(source).start()
 
-cam = VideoStream(0).start()
-#cap=cv2.VideoCapture('dhung.mp4') 
-count=0
+cam = VideoStream(0,framerate=40).start()
+
 while True:
     frame= cam.read()
     frame = cv2.resize(frame,[800,600])
@@ -50,10 +51,11 @@ while True:
         
         resrult = "G: " + str(pred_gender) + " A: " + str(pred_age) + " S: " + str(pred_shape)
         position=(x,y-40)
+        font = cv2.FONT_HERSHEY_SIMPLEX
 
-        cv2.putText(grayFrame,resrult,position,cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
-        
-        cv2.rectangle(grayFrame,(x-15,y-15),(x+w+15,y+h+15),(50,50,255),2) 
+        cv2.putText(grayFrame,resrult,position,font,0.5,(255,255,255),1)
+
+        cv2.rectangle(grayFrame,(x-15,y-15),(x+w+15,y+h+15),(50,50,255),2)
 
     cv2.imshow('showface', grayFrame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
