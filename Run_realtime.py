@@ -53,11 +53,11 @@ while True:
         position=(x,y-40)
         font = cv2.FONT_HERSHEY_SIMPLEX
 
-        cv2.putText(grayFrame,resrult,position,font,0.5,(255,255,255),1)
+        cv2.putText(frame,resrult,position,font,0.5,(0,255,0),2)
 
-        cv2.rectangle(grayFrame,(x-15,y-15),(x+w+15,y+h+15),(50,50,255),2)
+        cv2.rectangle(frame,(x-15,y-15),(x+w+15,y+h+15),(50,50,255),2)
 
-    cv2.imshow('showface', grayFrame)
+    cv2.imshow('showface', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 cv2.destroyAllWindows()
